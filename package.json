@@ -1,0 +1,33 @@
+{
+  "name": "upcover",
+  "version": "1.0.0",
+  "description": "Vue Js Business Landing Page Template",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "core-js": "^3.8.3",
+    "feather-icons": "^4.29.1",
+    "swiper": "^11.0.5",
+    "tiny-slider": "^2.9.4",
+    "vue": "^3.4.0",
+    "vue-countup-v3": "^1.4.1",
+    "vue-final-modal": "^3.3.0",
+    "vue-flux": "^7.0.0-beta.5",
+    "vue-router": "^4.3.0",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/compiler-sfc": "^3.4.0",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.33",
+    "sass": "^1.70.0",
+    "sass-loader": "^14.0.0",
+    "tailwindcss": "^3.4.1"
+  }
+}
