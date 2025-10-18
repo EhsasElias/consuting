@@ -1,79 +1,65 @@
 <template>
-  <footer
-    class="relative text-gray-200 bg-dark-footer dark:text-gray-200"
-  >
-    <div class="py-[30px] px-0 border-t border-slate-800">
-      <div class="container relative text-center">
-        <div
-          class="grid items-center grid-cols-1 lg:grid-cols-12 md:grid-cols-3"
-        >
-          <!-- Logo -->
-          <div class="text-center lg:col-span-3 md:text-start">
-            <a
-              href="#"
-              class="text-[22px] focus:outline-none inline-block"
-            >
-              <img
-                src="../assets/images/logo-light.png"
-                class="mx-auto md:me-auto md:ms-0 w-[120px]"
-                alt="منصة الاستشارات الذكية"
-              />
-            </a>
-          </div>
+  <footer class="py-4 text-gray-300 border-t bg-dark-footer border-slate-800/70">
+    <div class="container flex flex-col items-center justify-between gap-3 text-center md:flex-row">
+      <!-- شعار -->
+      <a href="#" class="flex items-center gap-2">
+        <img
+          src="../assets/images/logo-light.png"
+          alt="منصة الاستشارات الذكية"
+          class="w-[90px]"
+        />
+        <span class="hidden text-sm font-semibold text-secondary md:inline">
+          منصة الاستشارات الذكية
+        </span>
+      </a>
 
-          <!-- النص -->
-          <div
-            class="mt-6 leading-relaxed text-center lg:col-span-5 md:mt-0"
-          >
-            <p class="mb-0 text-sm text-gray-300">
-              جميع الحقوق محفوظة © {{ date }} <span class="font-semibold text-secondary">منصة الاستشارات الذكية</span>  
-              <br />
-              تم التطوير وفق <span class="font-semibold text-primary">رؤية المملكة العربية السعودية 2030</span>
-            </p>
-          </div>
-
-          <!-- Icons -->
-          <ul
-            class="flex items-center justify-center gap-2 mt-6 text-center list-none lg:col-span-4 md:text-end md:mt-0 md:justify-end"
-          >
-            <li>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                class="inline-flex items-center justify-center transition-all border rounded-md border-slate-700 size-8 hover:border-secondary hover:bg-secondary hover:text-primary"
-              >
-                <i data-feather="linkedin" class="align-middle size-4"></i>
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://x.com"
-                target="_blank"
-                class="inline-flex items-center justify-center transition-all border rounded-md border-slate-700 size-8 hover:border-secondary hover:bg-secondary hover:text-primary"
-              >
-                <i data-feather="twitter" class="align-middle size-4"></i>
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.instagram.com"
-                target="_blank"
-                class="inline-flex items-center justify-center transition-all border rounded-md border-slate-700 size-8 hover:border-secondary hover:bg-secondary hover:text-primary"
-              >
-                <i data-feather="instagram" class="align-middle size-4"></i>
-              </a>
-            </li>
-            <li>
-              <a
-                href="mailto:info@smartconsult.sa"
-                class="inline-flex items-center justify-center transition-all border rounded-md border-slate-700 size-8 hover:border-secondary hover:bg-secondary hover:text-primary"
-              >
-                <i data-feather="mail" class="align-middle size-4"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
+      <!-- معلومات التواصل -->
+      <div class="flex flex-wrap items-center justify-center gap-3 text-sm">
+        <a href="tel:0509212155" class="flex items-center gap-1 transition hover:text-secondary">
+          <i class="text-base mdi mdi-phone text-secondary"></i>
+          <span>0509212155</span>
+        </a>
+        <span class="text-slate-500">|</span>
+        <a href="mailto:hr@mharat.com.sa" class="flex items-center gap-1 transition hover:text-secondary">
+          <i class="text-base mdi mdi-email-outline text-secondary"></i>
+          <span>hr@mharat.com.sa</span>
+        </a>
+        <span class="text-slate-500">|</span>
+        <a href="https://wa.me/966509212155" target="_blank" class="flex items-center gap-1 transition hover:text-green-400">
+          <i class="text-base text-green-500 mdi mdi-whatsapp"></i>
+          <span>واتساب</span>
+        </a>
       </div>
+
+      <!-- سوشال -->
+      <div class="flex items-center justify-center gap-2">
+        <a
+          href="https://linkedin.com"
+          target="_blank"
+          class="inline-flex items-center justify-center transition rounded-full size-8 bg-white/5 hover:bg-secondary hover:text-primary"
+        >
+          <i data-feather="linkedin" class="size-4"></i>
+        </a>
+        <a
+          href="https://x.com"
+          target="_blank"
+          class="inline-flex items-center justify-center transition rounded-full size-8 bg-white/5 hover:bg-secondary hover:text-primary"
+        >
+          <i data-feather="twitter" class="size-4"></i>
+        </a>
+        <a
+          href="https://www.instagram.com"
+          target="_blank"
+          class="inline-flex items-center justify-center transition rounded-full size-8 bg-white/5 hover:bg-secondary hover:text-primary"
+        >
+          <i data-feather="instagram" class="size-4"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- الحقوق -->
+    <div class="pt-2 text-center text-[12px] text-slate-500">
+      جميع الحقوق محفوظة © {{ date }} | <span class="text-secondary">رؤية 2030</span>
     </div>
   </footer>
 </template>
@@ -83,9 +69,7 @@ import feather from "feather-icons";
 
 export default {
   data() {
-    return {
-      date: new Date().getFullYear(),
-    };
+    return { date: new Date().getFullYear() };
   },
   mounted() {
     feather.replace();

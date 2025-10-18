@@ -16,11 +16,22 @@
         <div class="grid items-center grid-cols-1 gap-10 md:grid-cols-2">
           <!-- Text Content -->
           <div class="space-y-5">
+            <!-- العنوان الرئيسي -->
             <h1
               class="text-4xl font-bold leading-normal tracking-wide lg:text-5xl text-primary"
             >
               نبذة عن المشروع
             </h1>
+
+            <!-- الشعار (slogan) -->
+            <h2
+              class="text-xl font-medium leading-relaxed text-slate-700 dark:text-slate-300"
+            >
+              شريكك الرقمي.. لنمو مستدام لمشروعك في ظل
+              <span class="font-semibold text-secondary">رؤية ٢٠٣٠</span>
+            </h2>
+
+            <!-- الفقرة التعريفية -->
             <p class="max-w-2xl text-lg text-slate-700 dark:text-slate-300">
               هي منصة رقمية مبتكرة تهدف إلى تمكين المنشآت الصغيرة والمتوسطة في
               المملكة العربية السعودية، من خلال تقديم خدمات استشارية مهنية
@@ -56,44 +67,57 @@
           <div class="relative">
             <img
               src="../assets/images/about.jpg"
-              class="mx-auto rounded-[120px] rounded-br-2xl shadow-lg dark:shadow-gray-800 w-[80%] h-[540px] object-cover"
+              class="mx-auto rounded-[120px] rounded-br-2xl shadow-lg dark:shadow-gray-800 w-[75%] h-[600px] object-cover"
               alt="Consulting Team"
             />
 
             <!-- Visitor Card -->
             <div
-              class="absolute bottom-0 flex items-center justify-between p-4 mb-20 border rounded-lg shadow-md right-3 bg-white/50 dark:bg-slate-900/70 w-60 backdrop-blur-sm border-white/40"
+              class="absolute bottom-0 flex items-center justify-between p-4 mb-20 border rounded-lg shadow-md right-3 bg-white/70 dark:bg-slate-900/80 w-60 backdrop-blur-md border-primary/20"
             >
               <div class="flex items-center">
                 <div
-                  class="flex items-center justify-center h-[65px] min-w-[65px] bg-secondary/40 text-primary rounded-full me-3"
+                  class="flex items-center justify-center h-[65px] min-w-[65px] bg-gradient-to-tr from-primary/10 to-secondary/30 text-primary rounded-full me-3"
                 >
                   <i class="text-3xl mdi mdi-monitor"></i>
                 </div>
                 <div>
-                  <span class="text-sm text-slate-500">الزوار</span>
+                  <span
+                    class="text-sm font-medium text-slate-700 dark:text-slate-200"
+                  >
+                    الاستشارات
+                  </span>
                   <p class="text-xl font-bold text-primary">4,589</p>
                 </div>
               </div>
-              <span class="flex items-center gap-1 text-sm text-red-600">
-                <i class="mdi mdi-trending-down"></i> 0.5%
+              <span
+                class="flex items-center gap-1 text-sm font-medium text-green-600 dark:text-green-400"
+              >
+                <i class="mdi mdi-trending-up"></i> 0.5%
               </span>
             </div>
 
             <!-- Consulting Card -->
             <div
-              class="absolute flex flex-col justify-between p-4 border rounded-lg shadow-md left-5 top-12 bg-white/50 dark:bg-slate-900/70 w-52 backdrop-blur-sm border-white/40 text-primary"
+              class="absolute flex flex-col justify-between p-4 border rounded-lg shadow-md left-5 top-12 bg-white/70 dark:bg-slate-900/80 w-52 backdrop-blur-md border-primary/20 text-primary"
             >
-              <h5 class="mb-2 text-sm font-semibold">نسبة المشاريع الفعالة</h5>
-              <div class="flex justify-between mb-1 text-xs text-slate-500">
+              <h5
+                class="mb-2 text-sm font-semibold text-slate-800 dark:text-slate-200"
+              >
+                نسبة المستشارين الفعّالين
+              </h5>
+              <div
+                class="flex justify-between mb-1 text-xs font-medium text-slate-600 dark:text-slate-300"
+              >
                 <span>التقدم</span>
                 <span>84%</span>
               </div>
+
               <div
-                class="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-[6px]"
+                class="w-full bg-slate-300/40 dark:bg-slate-700/50 rounded-full h-[6px] overflow-hidden"
               >
                 <div
-                  class="bg-gradient-to-r from-primary to-secondary h-[6px] rounded-full"
+                  class="bg-gradient-to-r from-primary to-secondary h-[6px] rounded-full transition-all duration-700 ease-in-out"
                   style="width: 84%"
                 ></div>
               </div>
@@ -107,12 +131,7 @@
     <Features />
     <About />
     <Values />
-    <!-- <AgencyTab />
-    <Cta />
-    <Client /> -->
     <Pricing />
-    <!-- <Blogs />
-    <GetInTouch /> -->
   </div>
 </template>
 
@@ -121,12 +140,7 @@ import Navbar from "@/components/Navbar.vue";
 import About from "@/components/About.vue";
 import Features from "@/components/Features.vue";
 import Values from "@/components/Values.vue";
-// import AgencyTab from "@/components/AgencyTab.vue";
-// import Cta from "@/components/Cta.vue";
-// import Client from "@/components/Client.vue";
 import Pricing from "@/components/Pricing.vue";
-// import Blogs from "@/components/Blogs.vue";
-// import GetInTouch from "@/components/GetInTouch.vue";
 
 export default {
   components: {
@@ -134,12 +148,7 @@ export default {
     Features,
     About,
     Values,
-    // AgencyTab,
-    // Cta,
-    // Client,
     Pricing,
-    // Blogs,
-    // GetInTouch,
   },
 };
 </script>
