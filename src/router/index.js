@@ -6,7 +6,9 @@ import IndexFour from '../pages/IndexFour.vue'
 import IndexFive from '../pages/IndexFive.vue'
 import IndexSix from '../pages/IndexSix.vue'
 import IndexSeven from '../pages/IndexSeven'
-import RegisterOne from '@/pages/Auth/RegisterOne.vue'
+import RegisterClient from '@/pages/Auth/RegisterClient.vue'
+import RegiserConsultant from '@/pages/Auth/RegiserConsultant.vue'
+import RegisterOffice from '@/pages/Auth/RegisterOffice.vue'
 
 const routes = [
   {
@@ -15,15 +17,23 @@ const routes = [
     component: Index
   },
    {
-    path: '/registerone',
-    name: 'RegisterOne',
-    component: RegisterOne
+    path: '/registerClient',
+    name: 'RegisterClient',
+    component: RegisterClient,
+    props: { initialType: 'client', initialStep: 0 },
   },
-  // {
-  //   path:'/index-two',
-  //   name:'index-two',
-  //   component:IndexTwo
-  // },
+  {
+    path: '/regiserConsultant', // كما طلبت بالضبط
+    name: 'RegiserConsultant',
+    component: RegiserConsultant,
+    props: { initialType: 'consultant', initialStep: 0 },
+  },
+  {
+    path: '/registerOffice', // كما طلبت بالضبط
+    name: 'RegisterOffice',
+    component: RegisterOffice,
+    props: { initialType: 'consultant', initialStep: 0 },
+  },
   // {
   //   path:'/index-three',
   //   name:'index-three',

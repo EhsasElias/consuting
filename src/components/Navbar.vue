@@ -69,7 +69,7 @@
   </li>
   <li class="nav-item ms-0 lg:ms-2">
     <a
-      href="/registerone"
+      href="/registerClient"
       class="h-10 w-full lg:w-auto px-4 text-[12px] tracking-wider inline-flex items-center justify-center
              font-medium rounded-md border border-primary text-primary bg-transparent uppercase
              hover:bg-secondary hover:text-black transition"

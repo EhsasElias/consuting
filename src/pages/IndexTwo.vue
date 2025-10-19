@@ -1,104 +1,154 @@
 <template>
-    <div>
-        <NavLight/>
+  <div>
+    <Navbar />
 
-         <section class="relative table w-full overflow-hidden py-36 lg:py-64" >
-            <div class="absolute inset-0 overflow-hidden">
-                <div class="absolute image-wrap -top-[350px] -bottom-[350px] -start-[100px] -end-[100px] min-w-full w-auto min-h-full h-auto overflow-hidden m-auto bg-no-repeat bg-center bg-cover" :style="{'background-image': 'url(' + require('../assets/images/bg/1.jpg') + ')'}"></div>
+    <!-- Hero Section -->
+    <section
+      class="relative flex items-center bg-center bg-no-repeat bg-cover md:h-screen py-36"
+      :style="{
+        backgroundImage: `url(${require('@/assets/images/brand-pattern.png')})`,
+        backgroundSize: '900px',
+        backgroundRepeat: 'repeat',
+        backgroundPosition: 'center',
+      }"
+    >
+      <div class="container relative z-10">
+        <div class="grid items-center grid-cols-1 gap-10 md:grid-cols-2">
+          <!-- Text Content -->
+          <div class="space-y-5">
+            <!-- العنوان الرئيسي -->
+            <h1
+              class="text-4xl font-bold leading-normal tracking-wide lg:text-5xl text-primary"
+            >
+              نبذة عن المشروع
+            </h1>
+
+            <!-- الشعار (slogan) -->
+            <h2
+              class="text-xl font-medium leading-relaxed text-slate-700 dark:text-slate-300"
+            >
+              شريكك الرقمي.. لنمو مستدام لمشروعك في ظل
+              <span class="font-semibold text-secondary">رؤية ٢٠٣٠</span>
+            </h2>
+
+            <!-- الفقرة التعريفية -->
+            <p class="max-w-2xl text-lg text-slate-700 dark:text-slate-300">
+              هي منصة رقمية مبتكرة تهدف إلى تمكين المنشآت الصغيرة والمتوسطة في
+              المملكة العربية السعودية، من خلال تقديم خدمات استشارية مهنية
+              وسريعة عبر الإنترنت. حيث تجمع المنصة بين الخبرات البشرية المتخصصة
+              والأدوات التقنية الذكية، لتقديم حلول شاملة في مجالات مختلفة مثل :
+              الإدارة، المالية، الموارد البشرية، الجوانب القانونية، والتعامل مع
+              الأنظمة الحكومية. بذلك، تسعى المنصة إلى سد الفجوة بين احتياج
+              المنشآت للدعم المهني وصعوبة الوصول إلى مستشارين أكفاء، وذلك لرفع
+              كفاءتها وضمان نموها المستدام، مساهمة في تحقيق رؤية المملكة 2030.
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex flex-wrap items-center gap-3 pt-4">
+              <a
+                href="#consulting"
+                class="inline-flex items-center justify-center font-semibold tracking-wide text-white transition-all duration-300 rounded-md shadow-md h-11 px-7 bg-primary hover:bg-primary-light"
+              >
+                <i class="text-xl mdi mdi-briefcase-outline me-2"></i>
+                الاستشارات
+              </a>
+
+              <a
+                href="#get-in-touch"
+                class="inline-flex items-center justify-center font-semibold tracking-wide text-white transition-all duration-300 rounded-md shadow-md h-11 px-7 bg-secondary hover:bg-secondary-dark"
+              >
+                <i class="text-xl mdi mdi-chat-outline me-2"></i>
+                تواصل معنا
+              </a>
             </div>
-            <div class="absolute inset-0 bg-black/70"></div>
+          </div>
 
-            <div class="container relative">
-                <div class="grid grid-cols-1 text-center">
-                    <div class="text-center">
-                        <a href="#!" @click="toggle" class="inline-flex items-center justify-center text-teal-500 bg-white rounded-full shadow-lg lightbox size-20 dark:shadow-gray-700 dark:bg-slate-900 dark:text-white">
-                            <i class="inline-flex items-center justify-center text-2xl mdi mdi-play"></i>
-                        </a>
-                    </div>
+          <!-- Image / Side Visual -->
+          <div class="relative">
+            <img
+              src="../assets/images/about.jpg"
+              class="mx-auto rounded-[120px] rounded-br-2xl shadow-lg dark:shadow-gray-800 w-[75%] h-[600px] object-cover"
+              alt="Consulting Team"
+            />
 
-                    <h4 class="my-5 text-4xl font-semibold leading-normal tracking-wide text-white lg:leading-normal lg:text-5xl">We Collaboration Easy & Fast</h4>
-                
-                    <p class="max-w-xl mx-auto text-lg text-white/70">This is just a simple text made for this unique and awesome template, you can replace it with any text.</p>
-                
-                    <div class="relative mt-8">
-                        <a href="" class="inline-flex items-center justify-center h-10 px-6 font-medium tracking-wide text-white bg-teal-500 rounded-md">Get Started</a>
-                    </div>
+            <!-- Visitor Card -->
+            <div
+              class="absolute bottom-0 flex items-center justify-between p-4 mb-20 border rounded-lg shadow-md right-3 bg-white/70 dark:bg-slate-900/80 w-60 backdrop-blur-md border-primary/20"
+            >
+              <div class="flex items-center">
+                <div
+                  class="flex items-center justify-center h-[65px] min-w-[65px] bg-gradient-to-tr from-primary/10 to-secondary/30 text-primary rounded-full me-3"
+                >
+                  <i class="text-3xl mdi mdi-monitor"></i>
                 </div>
-            </div><!--end container-->
-        </section><!--end section-->
-        <div class="relative">
-            <div class="absolute block w-full h-auto bottom-[25px] z-1 start-0">
-                <a href="#about"><i class="absolute top-0 inline-flex items-center justify-center w-12 h-12 mx-auto text-center bg-white rounded-full shadow-md mdi mdi-arrow-down start-0 end-0 dark:bg-slate-900 dark:shadow-gray-800"></i></a>
-            </div>
-
-            <div class="shape absolute sm:-bottom-px -bottom-[2px] start-0 end-0 overflow-hidden text-white dark:text-slate-900">
-                <svg class="w-full h-auto scale-[2.0] origin-top" viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
-                </svg>
-            </div>
-        </div>
-        <div :class="isActive ? 'fixed' : 'hidden' " class="bg-black/[0.9] top-0 left-0 bottom-0 w-[100%] h-[100%] z-999">
-            <div class="h-[100%] flex items-center justify-center">
-                <div class="relative inline-block">
-                    <iframe src="https://www.youtube.com/embed/S_CGed6E610" width="700" height="500" frameborder="0"></iframe>
-                    <a class="absolute text-xl text-white mdi mdi-close top-1 right-1" @click="toggle"></a>
+                <div>
+                  <span
+                    class="text-sm font-medium text-slate-700 dark:text-slate-200"
+                  >
+                    الاستشارات
+                  </span>
+                  <p class="text-xl font-bold text-primary">4,589</p>
                 </div>
+              </div>
+              <span
+                class="flex items-center gap-1 text-sm font-medium text-green-600 dark:text-green-400"
+              >
+                <i class="mdi mdi-trending-up"></i> 0.5%
+              </span>
             </div>
+
+            <!-- Consulting Card -->
+            <div
+              class="absolute flex flex-col justify-between p-4 border rounded-lg shadow-md left-5 top-12 bg-white/70 dark:bg-slate-900/80 w-52 backdrop-blur-md border-primary/20 text-primary"
+            >
+              <h5
+                class="mb-2 text-sm font-semibold text-slate-800 dark:text-slate-200"
+              >
+                نسبة المستشارين الفعّالين
+              </h5>
+              <div
+                class="flex justify-between mb-1 text-xs font-medium text-slate-600 dark:text-slate-300"
+              >
+                <span>التقدم</span>
+                <span>84%</span>
+              </div>
+
+              <div
+                class="w-full bg-slate-300/40 dark:bg-slate-700/50 rounded-full h-[6px] overflow-hidden"
+              >
+                <div
+                  class="bg-gradient-to-r from-primary to-secondary h-[6px] rounded-full transition-all duration-700 ease-in-out"
+                  style="width: 84%"
+                ></div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <About/>
-        <Features/>
-        <AgencyTab/>
-        <Cta/>
-        <Client/>
-        <Pricing/>
-        <Blogs/>
-        <GetInTouch/>
-
-    </div>
+    <!-- Other Sections -->
+    <Features />
+    <About />
+    <Values />
+    <Pricing />
+  </div>
 </template>
 
 <script>
-import NavLight from '@/components/NavLight.vue'
-import About from '@/components/About.vue'
-import Features from '@/components/Features.vue'
-import AgencyTab from '@/components/AgencyTab.vue'
-import Cta from '@/components/Cta.vue'
-import Client from '@/components/Client.vue'
-import Pricing from '@/components/Pricing'
-import Blogs from '@/components/Blogs.vue'
-import GetInTouch from '@/components/GetInTouch.vue'
+import Navbar from "@/components/Navbar.vue";
+import About from "@/components/About.vue";
+import Features from "@/components/Features.vue";
+import Values from "@/components/Values.vue";
+import Pricing from "@/components/Pricing.vue";
 
 export default {
-    name:"index-two",
-
-    components:{
-        NavLight,
-        About,
-        Features,
-        AgencyTab,
-        Cta,
-        Client,
-        Pricing,
-        Blogs,
-        GetInTouch
-    },
-
-    data(){
-        return{
-             isActive: false
-        }
-        
-    },
-
-     methods: {
-        toggle() {
-        if (!this.isActive) {
-            this.isActive = true;
-        } else {
-            this.isActive = false;
-        }
-        },
-   },
-}
+  components: {
+    Navbar,
+    Features,
+    About,
+    Values,
+    Pricing,
+  },
+};
 </script>

@@ -17,20 +17,21 @@
             </h4>
 
             <!-- على الموبايل صفين، وعلى الديسكتوب عمود -->
+            <!-- استبدل الأزرار داخل الـ sidebar -->
             <div class="grid grid-cols-2 gap-2 sm:grid-cols-2 md:grid-cols-1">
-              <button
+              <RouterLink
                 v-for="t in clientTypes"
                 :key="t.key"
-                @click="selectedClientType = t.key"
+                :to="toPath(t.key)"
                 class="w-full px-4 py-3 text-sm text-right transition border rounded-lg"
                 :class="
-                  selectedClientType === t.key
+                  isActiveType(t.key)
                     ? 'border-primary/60 text-primary bg-secondary/20'
                     : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
                 "
               >
                 {{ t.label }}
-              </button>
+              </RouterLink>
             </div>
 
             <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">
@@ -125,39 +126,79 @@
 
         <!-- Main -->
         <div class="space-y-4 md:col-span-8">
-          <!-- Stepper مبسّط -->
+          <!-- Stepper متجاوب -->
           <div
             class="p-4 bg-white border rounded-xl border-slate-200 dark:bg-slate-800 dark:border-slate-700"
           >
-            <div class="flex items-center gap-3">
-              <template v-for="(s, i) in steps" :key="s.key">
-                <div class="flex items-center gap-2">
-                  <span
-                    class="inline-flex items-center justify-center text-xs font-bold border rounded-full size-7"
-                    :class="
-                      step >= i
-                        ? 'bg-primary text-white border-primary'
-                        : 'bg-white dark:bg-slate-900 text-primary border-slate-300 dark:border-slate-600'
-                    "
-                  >
-                    {{ i + 1 }}
-                  </span>
-                  <span
-                    :class="
-                      step >= i
-                        ? 'text-primary font-semibold'
-                        : 'text-slate-500 dark:text-slate-400'
-                    "
-                    class="text-sm"
-                  >
-                    {{ s.title }}
-                  </span>
-                </div>
+            <!-- موبايل: شريط مختصر -->
+            <div class="flex items-center justify-between sm:hidden">
+              <div
+                class="text-xs font-semibold text-slate-700 dark:text-slate-200"
+              >
+                الخطوة {{ step + 1 }} من {{ steps.length }}
+              </div>
+              <div class="flex items-center gap-1">
+                <span
+                  v-for="(s, i) in steps"
+                  :key="s.key"
+                  class="inline-block transition-all rounded-full"
+                  :class="
+                    step === i
+                      ? 'w-2.5 h-2.5 bg-primary'
+                      : 'w-2 h-2 bg-slate-300 dark:bg-slate-600'
+                  "
+                ></span>
+              </div>
+            </div>
+
+            <!-- موبايل: شريط تقدّم -->
+            <div class="mt-2 sm:hidden">
+              <div
+                class="h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700"
+              >
                 <div
-                  v-if="i < steps.length - 1"
-                  class="flex-1 h-px bg-slate-200 dark:bg-slate-700"
+                  class="h-2 transition-all rounded-full bg-primary"
+                  :style="{
+                    width: Math.round(((step + 1) / steps.length) * 100) + '%',
+                  }"
                 ></div>
-              </template>
+              </div>
+            </div>
+
+            <!-- من sm وما فوق: الشكل الحالي مع تمرير عند الحاجة -->
+            <div class="items-center hidden gap-3 sm:flex">
+              <div
+                class="flex items-center w-full gap-2 overflow-x-auto no-scrollbar"
+              >
+                <template v-for="(s, i) in steps" :key="s.key">
+                  <div class="flex items-center flex-none gap-2">
+                    <span
+                      class="inline-flex items-center justify-center text-xs font-bold border rounded-full size-7"
+                      :class="
+                        step >= i
+                          ? 'bg-primary text-white border-primary'
+                          : 'bg-white dark:bg-slate-900 text-primary border-slate-300 dark:border-slate-600'
+                      "
+                    >
+                      {{ i + 1 }}
+                    </span>
+                    <span
+                      class="text-sm"
+                      :class="
+                        step >= i
+                          ? 'text-primary font-semibold'
+                          : 'text-slate-500 dark:text-slate-400'
+                      "
+                    >
+                      {{ s.title }}
+                    </span>
+                  </div>
+                  <div
+                    v-if="i < steps.length - 1"
+                    class="flex-1 h-px bg-slate-200 dark:bg-slate-700"
+                  ></div>
+                </template>
+              </div>
             </div>
           </div>
 
@@ -185,39 +226,52 @@
                   />
                 </div>
 
-                <!-- your existing inputs -->
                 <BaseInput
-                  label="اسم المنشأة"
-                  v-model="form.customer.orgName"
-                  :error="errors.orgName"
-                  placeholder="مثال: منصة الاستشارات الذكية"
+                  label="الاسم"
+                  v-model="form.consultant.name"
+                  :error="errors.name"
+                  placeholder="مثال: مكتب خبراء الاستشارات"
                 />
+
                 <BaseInput
-                  label="النشاط"
-                  v-model="form.customer.activity"
-                  :error="errors.activity"
-                  placeholder="مثال: استشارات أعمال"
+                  label="رقم الرخصة"
+                  v-model="form.consultant.licenseNo"
+                  :error="errors.licenseNo"
+                  inputmode="numeric"
+                  placeholder="مثال: 123456"
                 />
+
                 <BaseInput
-                  label="اسم المدير"
-                  v-model="form.customer.manager"
-                  :error="errors.manager"
+                  label="اسم المستشار"
+                  v-model="form.consultant.consultantName"
+                  :error="errors.consultantName"
                   placeholder="مثال: أحمد العتيبي"
                 />
+
                 <BaseInput
                   label="رقم الجوال"
-                  v-model="form.customer.mobile"
+                  v-model="form.consultant.mobile"
                   :error="errors.mobile"
                   inputmode="tel"
                   placeholder="05XXXXXXXX"
                 />
+
                 <BaseInput
                   class="md:col-span-2"
                   label="الإيميل الرسمي"
-                  v-model="form.customer.email"
+                  v-model="form.consultant.email"
                   :error="errors.email"
                   type="email"
-                  placeholder="name@company.sa"
+                  placeholder="name@office.sa"
+                />
+
+                <BaseInput
+                  class="md:col-span-2"
+                  label="الرقم السري"
+                  v-model="form.consultant.password"
+                  :error="errors.password"
+                  type="password"
+                  placeholder="••••••••"
                 />
               </div>
 
@@ -301,93 +355,78 @@
                 />
               </div>
 
-              <!-- STEP 4: بيانات المنشأة -->
+              <!-- STEP 4: المؤهلات العلمية -->
               <div
                 v-else-if="step === 3"
                 class="grid grid-cols-1 gap-4 md:grid-cols-2"
               >
+                <!-- المؤهلات العلمية -->
                 <BaseInput
-                  label="رقم السجل"
-                  v-model="form.org.cr"
-                  :error="errors.cr"
+                  label="المؤهلات العلمية"
+                  v-model="form.org.degree"
+                  :error="errors.degree"
+                  placeholder="مثال: ماجستير إدارة أعمال"
                 />
-                <BaseInput label="رقم المنشأة" v-model="form.org.orgNo" />
-                <BaseInput label="الرقم الموحد" v-model="form.org.unifiedNo" />
+
+                <!-- التخصص -->
+                <BaseInput
+                  label="التخصص"
+                  v-model="form.org.specialization"
+                  :error="errors.specialization"
+                  placeholder="مثال: إدارة مشاريع"
+                />
+
+                <!-- مرفق الشهادة -->
                 <BaseFile
-                  label="مرفق الشعار"
-                  v-model="form.org.logo"
-                  :error="errors.logo"
+                  label="مرفق الشهادة"
+                  v-model="form.org.certificateFile"
+                  :error="errors.certificateFile"
+                  accept=".pdf,.jpg,.jpeg,.png"
                 />
-                <BaseFile label="الورق الرسمي" v-model="form.org.letterhead" />
 
-                <!-- الإقرارات -->
+                <!-- مرفقات الوثائق -->
                 <div class="md:col-span-2">
-                  <div
-                    class="p-4 border rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/60"
+                  <label
+                    class="block mb-1 text-sm font-medium text-slate-700 dark:text-slate-300"
                   >
-                    <div class="flex items-center gap-2 mb-3">
-                      <span
-                        class="inline-flex items-center justify-center rounded-full size-7 bg-secondary/30 text-primary ring-1 ring-black/5"
-                      >
-                        <i class="mdi mdi-shield-check-outline text-[16px]"></i>
-                      </span>
-                      <h5
-                        class="text-sm font-semibold text-slate-900 dark:text-white"
-                      >
-                        الإقرارات
-                      </h5>
-                    </div>
+                    مرفقات الوثائق
+                  </label>
 
-                    <div class="space-y-3">
-                      <label
-                        class="flex items-start gap-2 text-sm leading-relaxed text-slate-700 dark:text-slate-300"
+                  <div class="space-y-2">
+                    <div
+                      v-for="(doc, index) in form.org.documents"
+                      :key="index"
+                      class="flex items-center gap-2"
+                    >
+                      <BaseFile
+                        v-model="form.org.documents[index].file"
+                        :label="`مرفق ${index + 1}`"
+                        accept=".pdf,.jpg,.jpeg,.png"
+                      />
+                      <BaseInput
+                        v-model="form.org.documents[index].title"
+                        :label="`عنوان ${index + 1}`"
+                        placeholder="كتابة عنوان مرفق"
+                      />
+                      <button
+                        type="button"
+                        class="px-3 py-2 mt-5 text-xs font-semibold text-white bg-red-500 rounded-md hover:bg-red-600"
+                        @click="removeDocument(index)"
                       >
-                        <input
-                          type="checkbox"
-                          v-model="form.acceptData"
-                          class="mt-1 rounded border-slate-300 text-primary focus:ring-primary"
-                        />
-                        <span>
-                          أُقرّ أنا المستخدم بأن جميع المعلومات والبيانات
-                          المدخلة أثناء عملية التسجيل صحيحة وكاملة وتعود لي
-                          شخصيًا، وأتحمّل المسؤولية القانونية الكاملة عن أي
-                          بيانات غير صحيحة أو مزيفة.
-                        </span>
-                      </label>
-
-                      <div class="h-px bg-slate-200 dark:bg-slate-700"></div>
-
-                      <label
-                        class="flex items-start gap-2 text-sm leading-relaxed text-slate-700 dark:text-slate-300"
-                      >
-                        <input
-                          type="checkbox"
-                          v-model="form.acceptTerms"
-                          class="mt-1 rounded border-slate-300 text-primary focus:ring-primary"
-                        />
-                        <span>
-                          أُقرّ بأنني قد اطلعت على كافة الشروط والأحكام المنظمة
-                          لاستخدام المنصة، وقبلت بها بشكل نهائي وملزم، ويُعد هذا
-                          الإقرار بمثابة قبول قانوني لا يحق معه الاعتراض لاحقًا.
-                        </span>
-                      </label>
-
-                      <div class="pt-1">
-                        <p
-                          v-if="errors.acceptData"
-                          class="text-xs text-red-600"
-                        >
-                          {{ errors.acceptData }}
-                        </p>
-                        <p
-                          v-if="errors.acceptTerms"
-                          class="text-xs text-red-600"
-                        >
-                          {{ errors.acceptTerms }}
-                        </p>
-                      </div>
+                        حذف
+                      </button>
                     </div>
                   </div>
+
+                  <!-- زر الإضافة -->
+                  <button
+                    type="button"
+                    class="inline-flex items-center px-4 py-2 mt-2 text-sm font-semibold text-white rounded-md bg-primary hover:bg-primary/90"
+                    @click="addDocument"
+                  >
+                    <i class="mr-1 text-lg mdi mdi-plus-circle-outline"></i>
+                    إضافة مرفق
+                  </button>
                 </div>
               </div>
 
@@ -431,7 +470,7 @@
                 <p class="mb-6 text-sm text-slate-600 dark:text-slate-300">
                   تم إرسال رمز تحقق مكوّن من 6 أرقام إلى
                   <span class="font-semibold text-primary">{{
-                    form.customer.mobile || form.customer.email
+                    form.consulting.mobile || form.consulting.email
                   }}</span>
                 </p>
 
@@ -500,19 +539,19 @@ export default {
     return {
       step: 0,
       steps: [
-        { key: "customer", title: "معلومات العميل" },
+        { key: "consulting", title: "معلومات المستشار" },
         { key: "address", title: "العنوان الوطني" },
         { key: "bank", title: "البيانات البنكية" },
-        { key: "org", title: "بيانات المنشأة" },
+        { key: "org", title: "بيانات المستشار" },
       ],
       form: {
-        customer: {
-          orgName: "",
-          activity: "",
-          manager: "",
-          mobile: "",
-          email: "",
-          type: "",
+        consulting: {
+          name: "", // الاسم
+          licenseNo: "", // رقم الرخصة
+          consultantName: "", // اسم المستشار
+          mobile: "", // رقم الجوال
+          email: "", // الإيميل الرسمي
+          password: "",
         },
         address: {
           region: "",
@@ -525,7 +564,26 @@ export default {
           shortAddress: "",
         },
         bank: { owner: "", bankName: "", account: "", iban: "", taxNo: "" },
-        org: { cr: "", orgNo: "", unifiedNo: "", logo: null, letterhead: null },
+        org: {
+          cr: "", // رقم السجل
+          crAttachment: null, // مرفق السجل
+          orgNo: "", // رقم المنشأة
+          orgAttachment: null, // مرفق رقم المنشأة
+          unifiedNo: "", // الرقم الموحد
+          unifiedAttachment: null, // مرفق الرقم الموحد
+          taxNo: "", // الرقم الضريبي
+
+          // 🎓 المؤهلات العلمية
+          degree: "", // المؤهلات العلمية
+          specialization: "", // التخصص
+          certificateFile: null, // مرفق الشهادة
+
+          // 📎 مرفقات الوثائق
+          documents: [
+            { file: null, title: "" }, // مرفق + عنوان
+          ],
+        },
+
         consultant: {
           type: "",
         },
@@ -537,7 +595,6 @@ export default {
         { key: "client", label: "عميل" },
         { key: "consultant", label: "مستشار" },
         { key: "office", label: "مكتب استشارات" },
-        { key: "admin", label: "إدارة المنصة" },
       ],
 
       errors: {},
@@ -590,15 +647,15 @@ export default {
         : this.consultantTypeOptions;
     },
 
-    // one v-model that switches between customer.type and consultant.type
+    // one v-model that switches between consulting.type and consultant.type
     selectedTypeModel: {
       get() {
         return this.isClient
-          ? this.form.customer?.type ?? ""
+          ? this.form.consulting?.type ?? ""
           : this.form.consultant?.type ?? "";
       },
       set(val) {
-        if (this.isClient) this.form.customer.type = val;
+        if (this.isClient) this.form.consulting.type = val;
         else this.form.consultant.type = val;
       },
     },
@@ -609,12 +666,26 @@ export default {
       if (newVal === "client") {
         this.form.consultant.type = "";
       } else {
-        this.form.customer.type = "";
+        this.form.consulting.type = "";
       }
     },
   },
 
   methods: {
+    toPath(key) {
+      if (key === "client") return "/registerClient";
+      if (key === "consultant") return "/regiserConsultant";
+      if (key === "office") return "/registerOffice";
+      // باقي الأنواع لو ما عندها صفحات حالياً:
+      return "#";
+    },
+    isActiveType(key) {
+      const path = this.$route.path;
+      if (key === "client") return path.startsWith("/registerClient");
+      if (key === "consultant") return path.startsWith("/regiserConsultant");
+      if (key === "office") return path.startsWith("/registerOffice");
+      return false;
+    },
     nextStep() {
       this.step = Math.min(this.step + 1, this.steps.length - 1);
     },
@@ -714,6 +785,13 @@ export default {
       this.startOtpTimer();
       if (this.otpRefs[0]) this.otpRefs[0].focus();
     },
+    addDocument() {
+  this.form.org.documents.push({ file: null, title: "" });
+},
+removeDocument(index) {
+  this.form.org.documents.splice(index, 1);
+},
+
   },
 
   beforeUnmount() {
